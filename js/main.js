@@ -1,20 +1,14 @@
-import {renderThumbnails, thumbnail} from './thumbnails.js';
-import {openBigPicture} from './full-picture.js';
-import {getData} from './api.js';
-import {appendElementFromTemplate} from './utils.js';
-import {setGalleryFilter} from './gallery-filter.js';
+import { renderThumbnails, thumbnail } from './thumbnails.js';
+import { openBigPicture } from './full-picture.js';
+import { getData } from './api.js';
+import { showErrorMessage } from './utils.js';
+import { setGalleryFilter } from './gallery-filter.js';
 import './form.js';
 import './image-preview.js';
+import './photo-upload.js';
 
 const imageFilters = document.querySelector('.img-filters--inactive');
 let photos = [];
-
-const showDataError = () => {
-  const errorMessage = appendElementFromTemplate('#data-error', '.data-error');
-  setTimeout(() => {
-    errorMessage.remove();
-  }, 5000);
-};
 
 getData()
   .then((data) => {
@@ -24,7 +18,7 @@ getData()
     setGalleryFilter(photos);
   })
   .catch(() => {
-    showDataError();
+    showErrorMessage();
   });
 
 thumbnail.addEventListener('click', (evt) => {

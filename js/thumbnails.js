@@ -24,4 +24,4 @@ const renderThumbnails = (photos) => {
   thumbnail.appendChild(thumbnailFragment);
 };
 
-export {renderThumbnails, thumbnail};
+export { renderThumbnails, thumbnail };
