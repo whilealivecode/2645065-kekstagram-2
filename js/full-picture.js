@@ -1,4 +1,4 @@
-import {isEscapeKey} from './utils.js';
+import { isEscapeKey } from './utils.js';
 
 const COUNT_STEP = 5;
 let shownCommentsCount = 0;
@@ -96,4 +96,4 @@ commentsLoader.addEventListener('click', loadMoreComments); // обработч�
 
 bigPictureCloseElement.addEventListener('click', closeBigPicture);
 
-export {openBigPicture};
+export { openBigPicture };

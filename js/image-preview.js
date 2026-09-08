@@ -8,43 +8,43 @@ const EFFECTS = {
     range: { min: 0, max: 1 },
     step: 0.1,
     start: 1,
-    applyFilter: () => 'none',
+    applyFilter: () => 'none'
   },
   chrome: {
     name: 'Хром',
     range: { min: 0, max: 1 },
     step: 0.1,
     start: 1,
-    applyFilter: (value) => `grayscale(${value})`,
+    applyFilter: (value) => `grayscale(${value})`
   },
   sepia: {
     name: 'Сепия',
     range: { min: 0, max: 1 },
     step: 0.1,
     start: 1,
-    applyFilter: (value) => `sepia(${value})`,
+    applyFilter: (value) => `sepia(${value})`
   },
   marvin: {
     name: 'Марвин',
     range: { min: 0, max: 100 },
     step: 1,
     start: 100,
-    applyFilter: (value) => `invert(${value}%)`,
+    applyFilter: (value) => `invert(${value}%)`
   },
   phobos: {
     name: 'Фобос',
     range: { min: 0, max: 3 },
     step: 0.1,
     start: 3,
-    applyFilter: (value) => `blur(${value}px)`,
+    applyFilter: (value) => `blur(${value}px)`
   },
   heat: {
     name: 'Зной',
     range: { min: 1, max: 3 },
     step: 0.1,
     start: 3,
-    applyFilter: (value) => `brightness(${value})`,
-  },
+    applyFilter: (value) => `brightness(${value})`
+  }
 };
 
 const sliderElement = document.querySelector('.effect-level__slider');
@@ -72,7 +72,7 @@ noUiSlider.create(sliderElement, {
     from: function (value) {
       return parseFloat(value);
     },
-  },
+  }
 });
 effectLevel.value = EFFECTS.none.start;
 
@@ -160,4 +160,4 @@ radios.forEach((radio) => {
 scaleControlSmaller.addEventListener('click', () => updateScale(-SCALE_STEP));
 scaleControlBigger.addEventListener('click', () => updateScale(SCALE_STEP));
 
-export {resetFilters};
+export { previewImage, resetFilters };

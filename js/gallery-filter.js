@@ -1,5 +1,5 @@
-import {renderThumbnails} from './thumbnails.js';
-import {debounce} from './utils.js';
+import { renderThumbnails } from './thumbnails.js';
+import { debounce } from './utils.js';
 
 const MAX_PICTURE_COUNT = 10;
 const allFilters = document.querySelectorAll('.img-filters__button');
@@ -49,4 +49,4 @@ const setGalleryFilter = (photos) => {
   filtersForm.addEventListener('click', onFilterClick); // Один обработчик на контейнер с кнопками (делегирование)
 };
 
-export {setGalleryFilter};
+export { setGalleryFilter };

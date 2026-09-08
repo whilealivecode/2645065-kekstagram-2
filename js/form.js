@@ -1,6 +1,6 @@
-import {isEscapeKey, stopEscapePropagation} from './utils.js';
-import {resetFilters} from './image-preview.js';
-import {blockSubmitButton, onFormSubmit} from './send-form.js';
+import { isEscapeKey, stopEscapePropagation } from './utils.js';
+import { resetFilters } from './image-preview.js';
+import { blockSubmitButton, onFormSubmit } from './send-form.js';
 
 const HASHTAG_REGEX = /^#[a-zA-Zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAGS = 5;
@@ -39,11 +39,11 @@ const RULES = [
   {
     check: (tags) => tags.length > MAX_HASHTAGS,
     message: `Нельзя указывать больше ${MAX_HASHTAGS} ${getHashtagForm(MAX_HASHTAGS)}`
-  },
+  }
 ];
 
 const imageUploadForm = document.querySelector('.img-upload__form'); // форма для загрузки и редактирования изображения
-const file = document.querySelector('.img-upload__input'); // кнопка для загрузки файла
+const fileInput = document.querySelector('.img-upload__input'); // кнопка для загрузки файла
 const imageEditOverlay = document.querySelector('.img-upload__overlay'); // окно редактирования изображения, появляется после выбора файла
 const fileCloseElement = imageUploadForm.querySelector('.img-upload__cancel'); // кнопка закрытия формы редактирования изображения
 const hashtags = document.querySelector('.text__hashtags');
@@ -56,8 +56,16 @@ const pristine = new Pristine(imageUploadForm, {
   errorTextParent: 'img-upload__field-wrapper', // Элемент, куда будет выводиться текст с ошибкой
 });
 
+// Функция очищает все следы ошибок валидации Pristine и сбрасывает состояние Pristine
+const clearValidationErrors = () => {
+  document.querySelectorAll('.pristine-error').forEach((element) => element.remove());
+  document.querySelectorAll('.img-upload__field-wrapper--error').forEach((element) => element.classList.remove('img-upload__field-wrapper--error'));
+  pristine.reset();
+};
+
 const openFileToEdit = () => {
-  if (file.value) {
+  if (fileInput.value) {
+    clearValidationErrors();
     document.body.classList.add('modal-open');
     imageEditOverlay.classList.remove('hidden');
   }
@@ -70,12 +78,12 @@ const closeFileToEdit = () => {
   document.removeEventListener('keydown', onFormKeydown);
   document.body.classList.remove('modal-open');
   imageUploadForm.reset();
-  pristine.reset();
+  clearValidationErrors();
 };
 
 function onFormKeydown (evt) { // Объявлена декларативно, иначе возникала бы ошибка "функция вызвана до её объявления"
   if (isEscapeKey(evt)) {
-    const message = document.querySelector('.success') || document.querySelector('.error');
+    const message = document.querySelector('.error');
     if (message) {
       return; // Не закрываем оверлей
     }
@@ -112,8 +120,6 @@ const validateHashtags = (value) => {
 
 const validateDescription = (value) => value.length <= MAX_LENGTH;
 
-file.addEventListener('change', openFileToEdit);
-
 fileCloseElement.addEventListener('click', closeFileToEdit);
 
 hashtags.addEventListener('keydown', stopEscapePropagation);
@@ -134,4 +140,4 @@ imageUploadForm.addEventListener('submit', (evt) => {
   onFormSubmit(formData, closeFileToEdit);
 });
 
-export {closeFileToEdit};
+export { closeFileToEdit, fileInput, openFileToEdit };

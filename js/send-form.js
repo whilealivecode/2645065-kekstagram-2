@@ -1,6 +1,6 @@
-import {appendElementFromTemplate, isEscapeKey} from './utils.js';
-import {sendData} from './api.js';
-import {resetFilters} from './image-preview.js';
+import { appendElementFromTemplate, isEscapeKey } from './utils.js';
+import { sendData } from './api.js';
+import { resetFilters } from './image-preview.js';
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
@@ -38,6 +38,7 @@ const onMessageKeydown = (evt, message) => {
 };
 
 const onCreateMessage = (templateId, messageClass, buttonClass) => () => {
+  document.querySelectorAll('.error, .success, .data-error').forEach((element) => element.remove()); // Удаляем все старые сообщения перед показом нового, чтобы на странице всегда было только одно актуальное сообщение
   const message = appendElementFromTemplate(templateId, `.${messageClass}`);
   message.setAttribute('tabindex', '-1'); // делаем сообщение фокусируемым
   message.focus(); // устанавливаем фокус на сообщении
@@ -66,4 +67,4 @@ const onFormSubmit = (formData, onSuccess) => {
     });
 };
 
-export {blockSubmitButton, onFormSubmit};
+export { blockSubmitButton, onFormSubmit };
