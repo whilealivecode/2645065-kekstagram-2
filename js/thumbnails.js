@@ -12,7 +12,10 @@ const createThumbnail = (photo) => {
   return photoThumbnail;
 };
 
+const clearThumbnails = () => thumbnail.querySelectorAll('.picture').forEach((item) => item.remove());
+
 const renderThumbnails = (photos) => {
+  clearThumbnails();
   const thumbnailFragment = document.createDocumentFragment();
   photos.forEach((photo) => {
     const thumbnailElement = createThumbnail(photo);

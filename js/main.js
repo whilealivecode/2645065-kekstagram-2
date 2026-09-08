@@ -2,9 +2,11 @@ import {renderThumbnails, thumbnail} from './thumbnails.js';
 import {openBigPicture} from './full-picture.js';
 import {getData} from './api.js';
 import {appendElementFromTemplate} from './utils.js';
+import {setGalleryFilter} from './gallery-filter.js';
 import './form.js';
 import './image-preview.js';
 
+const imageFilters = document.querySelector('.img-filters--inactive');
 let photos = [];
 
 const showDataError = () => {
@@ -18,6 +20,8 @@ getData()
   .then((data) => {
     photos = data;
     renderThumbnails(photos);
+    imageFilters.classList.remove('img-filters--inactive');
+    setGalleryFilter(photos);
   })
   .catch(() => {
     showDataError();
